@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] GameObject enemyObject;
-    [SerializeField] GameObject playerSlot;
+    [SerializeField] GameObject enemyObject; // Enemy
+    [SerializeField] GameObject playerSlot; // Grab Slot on Player
     public bool _isAggressive;
     [SerializeField] float moveDuration = 5f;
     [SerializeField] float pauseDuration = 7f;
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
 
-        if (_isAggressive == false)
+        if (_isAggressive == false) // Enemy moves at start if player is out of range
         {
             timer = moveDuration;
             paused = false;
@@ -31,27 +31,36 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (_isAggressive == false)
+        {
+            Movement();
+        }
+
+        else if (_isAggressive == true)
+        {
+            Attack();
+        }
+
     }
 
     void Movement()
     {
-        if (enemyObject.transform.parent != playerSlot.transform)
+        if (enemyObject.transform.parent != playerSlot.transform) // Enemy doesnt move if you pick it up
         {
 
-            timer -= Time.deltaTime;
+            timer -= Time.deltaTime; // timer runs out
 
             if (timer <= 0)
             {
                 if (paused)
                 {
-                    timer = moveDuration;
+                    timer = moveDuration; //moving starts
                     RandomMovement();
                     paused = false;
                 }
                 else
                 {
-                    timer = pauseDuration;
+                    timer = pauseDuration; // stand still starts
                     paused = true;
                 }
             }
@@ -69,7 +78,30 @@ public class Enemy : MonoBehaviour
 
     void RandomMovement()
     {
-        movementDirection = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
+        movementDirection = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)).normalized; // chooses random direction
         enemyMovement = movementDirection * enemySpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) //Player gets close = enemy gets mad
+    {
+        if (other.tag == "Player")
+        {
+            _isAggressive = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) // player far = enemy passive
+    {
+        if (other.tag == "Player")
+        {
+            _isAggressive = false;
+        }
+    }
+    void Attack()
+    {
+        if (_isAggressive == true)
+        {
+            
+        }
     }
 }
