@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject enemyObject; // Enemy
     [SerializeField] GameObject playerSlot; // Grab Slot on Player
+    [SerializeField] GameObject _player;
     public bool _isAggressive;
     [SerializeField] float moveDuration = 5f;
     [SerializeField] float pauseDuration = 7f;
@@ -45,7 +46,7 @@ public class Enemy : MonoBehaviour
 
     void Movement()
     {
-        if (enemyObject.transform.parent != playerSlot.transform) // Enemy doesnt move if you pick it up
+        if (enemyObject.transform.parent != playerSlot.transform && _isAggressive == false) // Enemy doesnt move if you pick it up
         {
 
             timer -= Time.deltaTime; // timer runs out
@@ -97,11 +98,14 @@ public class Enemy : MonoBehaviour
             _isAggressive = false;
         }
     }
+
     void Attack()
     {
-        if (_isAggressive == true)
+        if (_isAggressive == true && enemyObject.transform.parent != playerSlot.transform)
         {
-            
+            Vector2 _playerDirection = new Vector2 (_player.transform.position.x - transform.position.x,
+             _player.transform.position.y - transform.position.y);
+             transform.up = _playerDirection;
         }
     }
 }
