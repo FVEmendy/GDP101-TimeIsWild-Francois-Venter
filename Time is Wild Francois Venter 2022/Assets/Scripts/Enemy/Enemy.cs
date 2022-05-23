@@ -10,7 +10,11 @@ public class Enemy : MonoBehaviour
     public bool _isAggressive;
     [SerializeField] float moveDuration = 5f;
     [SerializeField] float pauseDuration = 7f;
-    [SerializeField] float timer;
+    [SerializeField] float timer; // timer for movement
+    [SerializeField] float attackTimer; // timer for attacks
+    [SerializeField] float attackDelay = 1f;
+    [SerializeField] GameObject _enemyProjectile;
+    [SerializeField] GameObject _enemyGun;
     bool paused;
     private Vector2 movementDirection;
     private Vector2 enemyMovement;
@@ -39,7 +43,7 @@ public class Enemy : MonoBehaviour
 
         else if (_isAggressive == true)
         {
-            Attack();
+            EnemyAim();
         }
 
     }
@@ -49,9 +53,9 @@ public class Enemy : MonoBehaviour
         if (enemyObject.transform.parent != playerSlot.transform && _isAggressive == false) // Enemy doesnt move if you pick it up
         {
 
-            timer -= Time.deltaTime; // timer runs out
+            timer -= Time.deltaTime; // timer time decreases
 
-            if (timer <= 0)
+            if (timer <= 0) // is timer runs out
             {
                 if (paused)
                 {
@@ -83,29 +87,43 @@ public class Enemy : MonoBehaviour
         enemyMovement = movementDirection * enemySpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other) //Player gets close = enemy gets mad
-    {
-        if (other.tag == "Player")
-        {
-            _isAggressive = true;
-        }
-    }
+    // private void OnTriggerEnter2D (Collider2D other) //Player gets close = enemy gets mad
+    // {
+    //     if (other.tag == "Player")
+    //     {
+    //         _isAggressive = true;
+    //     }
+    // }
 
-    private void OnTriggerExit2D(Collider2D other) // player far = enemy passive
-    {
-        if (other.tag == "Player")
-        {
-            _isAggressive = false;
-        }
-    }
+    // private void OnTriggerExit2D (Collider2D other) // player far = enemy passive
+    // {
+    //     if (other.tag == "Player")
+    //     {
+    //         _isAggressive = false;
+    //     }
+    // }
 
-    void Attack()
+    void EnemyAim()
     {
         if (_isAggressive == true && enemyObject.transform.parent != playerSlot.transform)
         {
             Vector2 _playerDirection = new Vector2 (_player.transform.position.x - transform.position.x,
              _player.transform.position.y - transform.position.y);
              transform.up = _playerDirection;
+        }
+        
+        Attack();
+
+    }
+
+    void Attack()
+    {
+        attackTimer = attackDelay;
+        attackTimer -= Time.deltaTime;
+
+        if (attackTimer <= 0)
+        {
+            Instantiate (_enemyProjectile, _enemyGun.transform.position, Quaternion.identity);
         }
     }
 }
