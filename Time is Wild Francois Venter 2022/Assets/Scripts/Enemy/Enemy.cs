@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        attackTimer = attackDelay;
 
         if (_isAggressive == false) // Enemy moves at start if player is out of range
         {
@@ -55,7 +56,7 @@ public class Enemy : MonoBehaviour
 
             timer -= Time.deltaTime; // timer time decreases
 
-            if (timer <= 0) // is timer runs out
+            if (timer <= 0) // if timer runs out
             {
                 if (paused)
                 {
@@ -87,43 +88,29 @@ public class Enemy : MonoBehaviour
         enemyMovement = movementDirection * enemySpeed;
     }
 
-    // private void OnTriggerEnter2D (Collider2D other) //Player gets close = enemy gets mad
-    // {
-    //     if (other.tag == "Player")
-    //     {
-    //         _isAggressive = true;
-    //     }
-    // }
-
-    // private void OnTriggerExit2D (Collider2D other) // player far = enemy passive
-    // {
-    //     if (other.tag == "Player")
-    //     {
-    //         _isAggressive = false;
-    //     }
-    // }
 
     void EnemyAim()
     {
         if (_isAggressive == true && enemyObject.transform.parent != playerSlot.transform)
         {
-            Vector2 _playerDirection = new Vector2 (_player.transform.position.x - transform.position.x,
+            Vector2 _playerDirection = new Vector2(_player.transform.position.x - transform.position.x,
              _player.transform.position.y - transform.position.y);
-             transform.up = _playerDirection;
+            transform.up = _playerDirection;
         }
-        
+
         Attack();
+        // attackTimer = attackDelay;
 
     }
 
     void Attack()
     {
-        attackTimer = attackDelay;
         attackTimer -= Time.deltaTime;
 
         if (attackTimer <= 0)
         {
-            Instantiate (_enemyProjectile, _enemyGun.transform.position, Quaternion.identity);
+            attackTimer = attackDelay;
+            Instantiate(_enemyProjectile, _enemyGun.transform.position, Quaternion.identity);
         }
     }
 }
