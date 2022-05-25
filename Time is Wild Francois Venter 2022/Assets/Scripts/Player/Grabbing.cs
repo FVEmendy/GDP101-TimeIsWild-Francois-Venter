@@ -22,7 +22,7 @@ public class Grabbing : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && other != null)
         {
             _grabbableItem = other;
         }
@@ -30,7 +30,7 @@ public class Grabbing : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && other != null)
         {
             _grabbableItem = null;
         }
@@ -44,12 +44,14 @@ public class Grabbing : MonoBehaviour
             _grabbableItem.transform.rotation = grabSlot.transform.rotation;
             _grabbableItem.transform.parent = grabSlot.transform;
             _canGrab = false;
+            _grabbableItem.tag = "grabbedEnemy";
         }
 
-        else if (_canGrab == false)
+        else if (_canGrab == false && _grabbableItem != null)
         {
             _grabbableItem.transform.parent = null;
             _canGrab = true;
+            _grabbableItem.tag = "Enemy";
         }
     }
 }

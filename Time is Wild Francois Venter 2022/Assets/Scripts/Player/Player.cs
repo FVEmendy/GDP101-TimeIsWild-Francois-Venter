@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     Vector2 moveInput;
     Rigidbody2D _playerRB;
+    Collider2D _circleCollider;
+
     // Start is called before the first frame update
     void Start()
     {
         _playerRB = GetComponent<Rigidbody2D>();
+        _circleCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -20,6 +23,7 @@ public class Player : MonoBehaviour
     {
         Run();
         Aim();
+        // Die();
     }
 
     void OnMove(InputValue value)
@@ -41,5 +45,13 @@ public class Player : MonoBehaviour
       
         transform.up = direction;
     }
+
+    // void Die()
+    // {
+    //     if (_circleCollider.IsTouchingLayers(LayerMask.GetMask("Bullets")))
+    //     {
+    //        FindObjectOfType<GameManager>().processDeath();
+    //     }
+    // }
 
 }

@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     private Vector2 movementDirection;
     private Vector2 enemyMovement;
     [SerializeField] float enemySpeed = 2f;
+    [SerializeField] float minimumDistance = 10f;
 
 
 
@@ -37,6 +38,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckAggressive();
+        CheckGrabbed();
+        
         if (_isAggressive == false)
         {
             Movement();
@@ -99,18 +103,44 @@ public class Enemy : MonoBehaviour
         }
 
         Attack();
-        // attackTimer = attackDelay;
+        
 
     }
 
     void Attack()
     {
-        attackTimer -= Time.deltaTime;
+        if (_isAggressive == true && enemyObject.transform.parent != playerSlot.transform)
+        {
+             attackTimer -= Time.deltaTime;
 
         if (attackTimer <= 0)
         {
             attackTimer = attackDelay;
-            Instantiate(_enemyProjectile, _enemyGun.transform.position, Quaternion.identity);
+            Instantiate(_enemyProjectile, _enemyGun.transform.position, enemyObject.transform.rotation);
+        }
+        }
+       
+    }
+
+    void CheckAggressive ()
+    {
+       float distanceFromPlayer = Vector3.Distance (_player.transform.position, transform.position);
+
+        if (distanceFromPlayer <= minimumDistance)
+        {
+            _isAggressive = true;
+        }
+        else if (distanceFromPlayer > minimumDistance)
+        {
+            _isAggressive = false;
+        }
+    }
+
+    void CheckGrabbed()
+    {
+        if (enemyObject.transform.parent == playerSlot.transform)
+        {
+           attackTimer = attackDelay;
         }
     }
 }

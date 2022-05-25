@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class EnemyTrigger : MonoBehaviour
 {
-    Enemy  _enemyScript;
+    public Enemy _enemyScript;
     // Start is called before the first frame update
     void Start()
     {
-        _enemyScript = GetComponent<Enemy>();
+        _enemyScript = FindObjectOfType<Enemy>();
     }
 
     // Update is called once per frame
@@ -32,4 +32,12 @@ public class EnemyTrigger : MonoBehaviour
             _enemyScript._isAggressive = false;
         }
     }
+
+    // void Aggressive()
+    // {
+    //     if (player.transform.position)
+    //     {
+            
+    //     }
+    // }
 }
