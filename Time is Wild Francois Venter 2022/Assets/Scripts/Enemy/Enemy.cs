@@ -20,12 +20,14 @@ public class Enemy : MonoBehaviour
     private Vector2 enemyMovement;
     [SerializeField] float enemySpeed = 2f;
     [SerializeField] float minimumDistance = 10f;
+    Rigidbody2D _enemyRB;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        _enemyRB = GetComponent<Rigidbody2D>();
         attackTimer = attackDelay;
 
         if (_isAggressive == false) // Enemy moves at start if player is out of range
@@ -122,25 +124,32 @@ public class Enemy : MonoBehaviour
        
     }
 
-    void CheckAggressive ()
+    void CheckAggressive () 
     {
-       float distanceFromPlayer = Vector3.Distance (_player.transform.position, transform.position);
+       float distanceFromPlayer = Vector3.Distance (_player.transform.position, transform.position); // checks distance from player
 
-        if (distanceFromPlayer <= minimumDistance)
+        if (distanceFromPlayer <= minimumDistance) // if close = aggressive
         {
             _isAggressive = true;
         }
-        else if (distanceFromPlayer > minimumDistance)
+        else if (distanceFromPlayer > minimumDistance) // if far = passive
         {
             _isAggressive = false;
         }
     }
 
-    void CheckGrabbed()
+    void CheckGrabbed() // Resets attack delay when grabbed
     {
         if (enemyObject.transform.parent == playerSlot.transform)
         {
            attackTimer = attackDelay;
+           enemyObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
     }
+
+    // void LayerChangeWhenDropped()
+    // {
+    
+    // }
+
 }

@@ -8,19 +8,22 @@ TagManager:
   - EnemyTrigger
   - grabbedEnemy
   - Wall
+  - EnemyProjectile
+  - Trash
+  - Exit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - Player
+  - Enemy Projectile
   - Enemy
   - Wall
-  - 
-  - 
-  - 
+  - PlayerTrigger
+  - Trash
+  - Interactable
   - 
   - 
   - 
