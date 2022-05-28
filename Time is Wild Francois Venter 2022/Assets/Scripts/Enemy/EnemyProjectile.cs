@@ -8,11 +8,13 @@ public class EnemyProjectile : MonoBehaviour
     [SerializeField] GameObject _player;
     [SerializeField] float bulletSpeed = 10f;
     public Vector2 _projectileSpeed;
+    Grabbing _grabScript;
 
     // Start is called before the first frame update
     void Start()
     {
         _projectileRB = GetComponent<Rigidbody2D>();
+        _grabScript = FindObjectOfType<Grabbing>();
         
     }
 
@@ -40,6 +42,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
+            _grabScript._canGrab = true;
         } 
     }
     

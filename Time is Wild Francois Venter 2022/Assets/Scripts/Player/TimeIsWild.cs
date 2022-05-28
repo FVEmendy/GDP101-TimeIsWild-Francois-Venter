@@ -9,16 +9,18 @@ public class TimeIsWild : MonoBehaviour
     public float slowTime = 0.5f;
     public float normalTime = 1f;
     public bool _isSlowed;
-    [SerializeField] public float SlowTime = 5f;
+    [SerializeField] public float SlowTime = 5.99f;
     [SerializeField] public float timer;
-    [SerializeField] public float rechargeTime = 100f;
+    [SerializeField] public float rechargeTime = 10.99f;
     [SerializeField] public float timerRecharge;
+    public static string showTimeUI;
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = normalTime;
         _canSlow = true;
+        showTimeUI = "TIME";
     }
 
     // Update is called once per frame
@@ -27,23 +29,28 @@ public class TimeIsWild : MonoBehaviour
         if (_isSlowed == true)
         {
             timer -= Time.deltaTime;
+            showTimeUI = timer.ToString("n0");
 
-            if (timer <= 0)
+            if (timer <= 1)
             {
                 Time.timeScale = normalTime;
                 _isSlowed = false;
                 _canSlow = false;
                 timerRecharge = rechargeTime;
+                showTimeUI = timerRecharge.ToString();
             }
         }
         
         else if (_isSlowed == false && _canSlow == false)
         {
             timerRecharge -= Time.deltaTime;
+            showTimeUI = timerRecharge.ToString("n0");
 
-            if (timerRecharge <= 0)
+            if (timerRecharge <= 1)
             {
                _canSlow = true;
+               showTimeUI = "TIME";
+
             }
         }
     }
@@ -57,6 +64,7 @@ public class TimeIsWild : MonoBehaviour
                 Time.timeScale = slowTime;
                 _isSlowed = true;
                 timer = SlowTime;
+
             }
 
             else if (_isSlowed == true)

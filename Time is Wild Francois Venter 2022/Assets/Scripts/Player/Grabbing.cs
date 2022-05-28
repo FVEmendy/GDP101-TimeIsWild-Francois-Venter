@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public class Grabbing : MonoBehaviour
 {
     BoxCollider2D grabSlot;
-    bool _canGrab = true;
-    [SerializeField] Collider2D _grabbableItem;
+    public bool _canGrab = true;
+    [SerializeField] public Collider2D _grabbableItem;
     // Start is called before the first frame update
     void Start()
     {
