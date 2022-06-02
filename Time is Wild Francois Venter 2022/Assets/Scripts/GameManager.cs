@@ -9,7 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] int playerLives = 3;
     [SerializeField] TextMeshProUGUI livesUI;
     [SerializeField] TextMeshProUGUI timeUI;
+    [SerializeField] TextMeshProUGUI scoreUI;
     public TimeIsWild _timeScript;
+   
+    int playerScore = 0;
     
     // Start is called before the first frame update
 
@@ -30,6 +33,7 @@ public class GameManager : MonoBehaviour
     {
         _timeScript = FindObjectOfType<TimeIsWild>();
         livesUI.text = playerLives.ToString();
+        scoreUI.text = playerScore.ToString();
     }
 
     // Update is called once per frame
@@ -63,5 +67,11 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Destroy(gameObject);
+    }
+
+    public void AddScore()
+    {
+        playerScore ++;
+        scoreUI.text = playerScore.ToString();
     }
 }

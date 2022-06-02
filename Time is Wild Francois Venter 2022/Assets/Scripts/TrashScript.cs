@@ -24,6 +24,7 @@ public class TrashScript : MonoBehaviour
             grabbingScript._grabbableItem = null;
             grabbingScript._canGrab = true;
             Destroy(other.gameObject);
+            FindObjectOfType<GameManager>().AddScore();
         }
     }
 }

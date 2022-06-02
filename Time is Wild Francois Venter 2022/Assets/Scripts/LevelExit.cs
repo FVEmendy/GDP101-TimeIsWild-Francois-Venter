@@ -8,6 +8,22 @@ public class LevelExit : MonoBehaviour
     [SerializeField] float loadDelay = 5f;
     // Start is called before the first frame update
 
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void Controls()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
