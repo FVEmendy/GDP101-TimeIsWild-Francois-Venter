@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     private Vector2 enemyMovement;
     [SerializeField] float enemySpeed = 2f;
     [SerializeField] float minimumDistance = 10f;
+    [SerializeField] float minimumMoveDistance = 30f;
+    public bool _shouldMove;
     Rigidbody2D _enemyRB;
 
 
@@ -42,6 +44,7 @@ public class Enemy : MonoBehaviour
     {
         CheckAggressive();
         CheckGrabbed();
+        CheckMovement();
         
         if (_isAggressive == false)
         {
@@ -57,7 +60,7 @@ public class Enemy : MonoBehaviour
 
     void Movement()
     {
-        if (enemyObject.transform.parent != playerSlot.transform && _isAggressive == false) // Enemy doesnt move if you pick it up
+        if (enemyObject.transform.parent != playerSlot.transform && _isAggressive == false && _shouldMove == true) // Enemy doesnt move if you pick it up
         {
 
             timer -= Time.deltaTime; // timer time decreases
@@ -144,6 +147,20 @@ public class Enemy : MonoBehaviour
         {
            attackTimer = attackDelay;
            enemyObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
+    }
+
+    void CheckMovement()
+    {
+        float distanceFromPlayer_move = Vector3.Distance (_player.transform.position, transform.position);
+        
+        if (distanceFromPlayer_move <= minimumMoveDistance)
+        {
+          _shouldMove = true;  
+        }
+        else if (distanceFromPlayer_move > minimumMoveDistance)
+        {
+           _shouldMove = false; 
         }
     }
 

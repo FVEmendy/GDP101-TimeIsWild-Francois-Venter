@@ -11,6 +11,8 @@ TagManager:
   - EnemyProjectile
   - Trash
   - Exit
+  - gameUI
+  - winUI
   layers:
   - Default
   - TransparentFX
@@ -48,6 +50,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Trash
+    uniqueID: 3645066231
+    locked: 0
   - name: Enemy
     uniqueID: 2057199855
     locked: 0
@@ -60,6 +65,6 @@ TagManager:
   - name: Projectile
     uniqueID: 308862347
     locked: 0
-  - name: Trash
-    uniqueID: 3645066231
+  - name: Exit
+    uniqueID: 3584572017
     locked: 0

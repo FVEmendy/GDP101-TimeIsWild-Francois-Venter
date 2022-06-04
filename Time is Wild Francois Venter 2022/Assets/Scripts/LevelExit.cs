@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     [SerializeField] float loadDelay = 5f;
+    [SerializeField] GameObject _healthUI;
+    [SerializeField] GameObject _scoreUI;
+    [SerializeField] GameObject _Heart;
+    [SerializeField] GameObject _Skull;
+    [SerializeField] GameObject oldHealth;
+    [SerializeField] GameObject oldHeart;
+    [SerializeField] GameObject oldScore;
+    [SerializeField] GameObject oldSkull;
+    [SerializeField] GameObject oldTIME;
     // Start is called before the first frame update
 
 
@@ -39,12 +48,37 @@ public class LevelExit : MonoBehaviour
          int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
          int nextSceneIndex = currentSceneIndex + 1;
 
-        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        // if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        // {
+        //     nextSceneIndex = 0;
+        // }
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
-            nextSceneIndex = 0;
+            _healthUI.SetActive(true);
+            _scoreUI.SetActive(true);
+            _Heart.SetActive(true);
+            _Skull.SetActive(true);
+            oldHealth.SetActive(false);
+            oldHeart.SetActive(false);
+            oldScore.SetActive(false);
+            oldSkull.SetActive(false);
+            oldTIME.SetActive(false);
+
         }
 
         SceneManager.LoadScene(nextSceneIndex);
 
+    }
+
+    void ExitWinScreen()
+    {
+        FindObjectOfType<GameManager>().ResetGame();
+        
+    }
+
+    void RetryWinScreen()
+    {
+        FindObjectOfType<GameManager>().ResetGame();
     }
 }
