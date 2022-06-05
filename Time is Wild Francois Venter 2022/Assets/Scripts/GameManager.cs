@@ -6,15 +6,18 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] int playerLives = 3;
+    [SerializeField] public int playerLives = 3;
     [SerializeField] TextMeshProUGUI livesUI;
     [SerializeField] TextMeshProUGUI timeUI;
     [SerializeField] TextMeshProUGUI scoreUI;
     [SerializeField] TextMeshProUGUI healthWinUI;
     [SerializeField] TextMeshProUGUI scoreWinUI;
     public TimeIsWild _timeScript;
+
+    [SerializeField] GameObject Heart;
+    [SerializeField] GameObject Skull;
    
-    int playerScore = 0;
+    public int playerScore = 0;
     
     // Start is called before the first frame update
 
@@ -25,7 +28,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else
+        else 
         {
             DontDestroyOnLoad(gameObject);
         }
@@ -44,6 +47,16 @@ public class GameManager : MonoBehaviour
     void Update()
     {
          timeUI.text = TimeIsWild.showTimeUI;
+
+           int currentScene = SceneManager.GetActiveScene().buildIndex;
+
+        if (currentScene == SceneManager.sceneCountInBuildSettings)
+        {
+            livesUI.enabled = false;
+            scoreUI.enabled = false;
+            Heart.SetActive(false);
+            Skull.SetActive(false);
+        }
     }
 
     public void processDeath()

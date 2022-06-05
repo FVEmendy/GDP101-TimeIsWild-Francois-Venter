@@ -53,6 +53,9 @@ TagManager:
   - name: Trash
     uniqueID: 3645066231
     locked: 0
+  - name: Exit
+    uniqueID: 3584572017
+    locked: 0
   - name: Enemy
     uniqueID: 2057199855
     locked: 0
@@ -64,7 +67,4 @@ TagManager:
     locked: 0
   - name: Projectile
     uniqueID: 308862347
-    locked: 0
-  - name: Exit
-    uniqueID: 3584572017
     locked: 0

@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     [SerializeField] float loadDelay = 5f;
-    [SerializeField] GameObject _healthUI;
-    [SerializeField] GameObject _scoreUI;
-    [SerializeField] GameObject _Heart;
-    [SerializeField] GameObject _Skull;
+    // [SerializeField] GameObject _healthUI;
+    // [SerializeField] GameObject _scoreUI;
+    // [SerializeField] GameObject _Heart;
+    // [SerializeField] GameObject _Skull;
     [SerializeField] GameObject oldHealth;
     [SerializeField] GameObject oldHeart;
     [SerializeField] GameObject oldScore;
@@ -55,15 +55,15 @@ public class LevelExit : MonoBehaviour
 
         if (nextSceneIndex == SceneManager.sceneCountInBuildSettings - 1)
         {
-            _healthUI.SetActive(true);
-            _scoreUI.SetActive(true);
-            _Heart.SetActive(true);
-            _Skull.SetActive(true);
-            oldHealth.SetActive(false);
-            oldHeart.SetActive(false);
-            oldScore.SetActive(false);
-            oldSkull.SetActive(false);
-            oldTIME.SetActive(false);
+            // _healthUI.SetActive(true);
+            // _scoreUI.SetActive(true);
+            // _Heart.SetActive(true);
+            // _Skull.SetActive(true);
+            // oldHealth.SetActive(false);
+            // oldHeart.SetActive(false);
+            // oldScore.SetActive(false);
+            // oldSkull.SetActive(false);
+            // oldTIME.SetActive(false);
 
         }
 
@@ -71,14 +71,15 @@ public class LevelExit : MonoBehaviour
 
     }
 
-    void ExitWinScreen()
+    public void ExitWinScreen()
     {
         FindObjectOfType<GameManager>().ResetGame();
         
     }
 
-    void RetryWinScreen()
+    public void RetryWinScreen()
     {
         FindObjectOfType<GameManager>().ResetGame();
+        SceneManager.LoadScene(2);
     }
 }
